@@ -22,9 +22,6 @@ class UnsortableOrderedDict(OrderedDict):
 
 yaml.add_representer(UnsortableOrderedDict, yaml.representer.SafeRepresenter.represent_dict)
 
-
-
-
 mypath = "/Users/aweiler/MC/AtomStatYaml/8TeV"
 
 anaList = [f for f in listdir(mypath) if isdir(join(mypath, f))]
@@ -58,8 +55,8 @@ for anaName in anaList:
         oneSRdict[sr_info] = dict (
             # Name = sr_info,
             Type = "CutAndCount",
-            Luminosity =  float(srlistEntry[1]),
-            rootS =  float(srlistEntry[0]),
+            #Luminosity =  float(srlistEntry[1]),
+            #rootS =  float(srlistEntry[0]),
             Observed =  int(srlistEntry[2]),
             Background =  float(srlistEntry[3]),
             SystematicError =  float(srlistEntry[4]),

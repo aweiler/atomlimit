@@ -1,0 +1,83 @@
+Name: ATLAS_CONF_2013_061
+SignalRegions:
+- SR-0l-4j-A:
+    Background: 3.0
+    Observed: 2
+    SystematicError: 1.3
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 4.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.23
+- SR-0l-4j-B:
+    Background: 1.3
+    Observed: 3
+    SystematicError: 1.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 6.7
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.33
+- SR-0l-4j-C:
+    Background: 1.8
+    Observed: 2
+    SystematicError: 1.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 4.8
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.24
+- SR-0l-7j-A:
+    Background: 22.5
+    Observed: 22
+    SystematicError: 6.9
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 15.3
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.76
+- SR-0l-7j-B:
+    Background: 3.6
+    Observed: 3
+    SystematicError: 2.5
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 6.1
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.3
+- SR-0l-7j-C:
+    Background: 0.8
+    Observed: 1
+    SystematicError: 0.85
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 3.9
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.19
+- SR-1l-6j-A:
+    Background: 15.5
+    Observed: 7
+    SystematicError: 8.4
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 6.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.33
+- SR-1l-6j-B:
+    Background: 7.4
+    Observed: 0
+    SystematicError: 5.7
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 3.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.15
+- SR-1l-6j-C:
+    Background: 3.0
+    Observed: 0
+    SystematicError: 2.8
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 3.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.15

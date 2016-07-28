@@ -1,0 +1,47 @@
+Name: ATLAS_CONF_2013_037
+SignalRegions:
+- SRtN2:
+    Background: 13.0
+    Observed: 14
+    SystematicError: 3.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 10.7
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.5
+- SRtN3:
+    Background: 5.0
+    Observed: 7
+    SystematicError: 2.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 8.5
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.4
+- SRbC1:
+    Background: 482.0
+    Observed: 456
+    SystematicError: 76.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 83.2
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 4.0
+- SRbC2:
+    Background: 25.0
+    Observed: 25
+    SystematicError: 18.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 19.5
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.9
+- SRbC3:
+    Background: 7.0
+    Observed: 6
+    SystematicError: 3.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 7.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.4
