@@ -16,6 +16,8 @@ from math import *
 #from collections import *
 import yaml
 
+from tabulate import tabulate
+
 from os import listdir
 from os.path import  isdir,isfile, join
 
@@ -69,13 +71,15 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
     
 
     for atomAnaName in atomOut["Analyses"].keys():
-        print atomAnaName
         
+        integrated_lumi = atomOut["Analyses"][atomAnaName]["Luminosity"]["Value"]
+        print atomAnaName,integrated_lumi 
 
         for signal_region in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
             logeffdict={} 
+            
             sr_name = signal_region["Efficiency Name"]           
-            # print signal_region, sr_name
+            print sr_name
             
             try:
                 # print anaStat[atomAnaName]
@@ -85,8 +89,50 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                     efferror = effData["Efficiency Stat Error"]
                             #print efferror
                     procid = effData["Sub-process ID"]
-                    print effvalue, efferror, procid
+                    if procid == 0:
+                        print effvalue, efferror, procid
 
+                        nvis = float(effvalue) * float(xsecSubProc[procid]) * integrated_lumi
+                        
+                        obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperLimit95obs"])
+
+                        nvisOn95 = float(nvis) / obs95CLnevents
+                        print nvis, nvisOn95, xsecSubProc[procid]
+
+                        fstate = str(getAtomFinalstate(atomOut,procid))
+
+                        nviserror = [ errorelement  * float(xsecSubProc[procid]) * integrated_lumi for errorelement in efferror ]
+                        nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * integrated_lumi  / obs95CLnevents for errorelement in efferror ]
+
+                        printcolor = bcolors.ENDC
+
+                        if nvisOn95 > 1:
+                            excluded = " <- excluded"
+                            printcolor = bcolors.FAIL
+                                
+                        if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1:  # error 
+                            excluded = " <- excluded? (LOW STAT!)"
+
+                        printLine =  [ printcolor + atomAnaName , sr_name,effvalue, nvis, nvisOn95,  ]
+
+                        if errorSHOW:
+                            #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
+                            printLine =  [ printcolor + atomAnaName , sr_name, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
+                            #print printLine
+
+                        if subprocSHOW:
+                            printLine.append( procid )
+                            if finalstateSHOW:
+                                printLine.append( str(getAtomFinalstate(atomOut,procid)) )
+
+                        printLine.append( excluded )
+
+                        # print printLine
+
+                        outLine =  [ atomAnaName , sr_name ,effvalue, float(effvalue)*float(xsecSubProc[procid])*  integrated_lumi, float(effvalue)*float(xsecSubProc[procid])*integrated_lumi/float(obs95CLnevents), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
+                        
+                        atomPrint.append([str(i) for i in printLine])
+                        outData.append([str(i) for i in outLine])
 
                 
             except KeyError:
@@ -114,42 +160,42 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                                 
             #                     printcolor = bcolors.ENDC
                                 
-            #                     nvis = float(effvalue) * float(xsecSubProc[procid]) * anaData.lumi
-            #                     nvisOn95 = float(nvis) / float(srData.UL_nvis_obs)
-            #                     fstate = str(getAtomFinalstate(atomOut,procid))
+                                # nvis = float(effvalue) * float(xsecSubProc[procid]) * anaData.lumi
+                                # nvisOn95 = float(nvis) / float(srData.UL_nvis_obs)
+                                # fstate = str(getAtomFinalstate(atomOut,procid))
 
-            #                     nviserror = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi for errorelement in efferror ]
-            #                     nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi  / float(srData.UL_nvis_obs) for errorelement in efferror ]
+                                # nviserror = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi for errorelement in efferror ]
+                                # nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi  / float(srData.UL_nvis_obs) for errorelement in efferror ]
 
-            #                     #print srData.UL_nvis_obs, nvisOn95, nvisOn95error, (nvisOn95 + nvisOn95error[0])
+                                # #print srData.UL_nvis_obs, nvisOn95, nvisOn95error, (nvisOn95 + nvisOn95error[0])
 
-            #                     if nvisOn95 > 1:
-            #                         excluded = " <- excluded"
-            #                         printcolor = bcolors.FAIL
+                                # if nvisOn95 > 1:
+                                #     excluded = " <- excluded"
+                                #     printcolor = bcolors.FAIL
                                 
-            #                     if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1: # 
-            #                         excluded = " <- excluded? (LOW STAT)"
-            #                         #print excluded
-            #                         printcolor = bcolors.WARNING
+                                # if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1: # 
+                                #     excluded = " <- excluded? (LOW STAT)"
+                                # #     #print excluded
+                                # #     printcolor = bcolors.WARNING
 
-            #                     printLine =  [ printcolor + ana , srData.sr_info,effvalue, nvis, nvisOn95,  ]
+                                # printLine =  [ printcolor + ana , srData.sr_info,effvalue, nvis, nvisOn95,  ]
 
-            #                     if errorSHOW:
-            #                         #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
-            #                         printLine =  [ printcolor + ana , srData.sr_info, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
-            #                         #print printLine
+                                # if errorSHOW:
+                                #     #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
+                                #     printLine =  [ printcolor + ana , srData.sr_info, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
+                                #     #print printLine
 
-            #                     if subprocSHOW:
+                                # if subprocSHOW:
 
-            #                         printLine.append( procid )
-            #                         if finalstateSHOW:
-            #                             printLine.append( str(getAtomFinalstate(atomOut,procid)) )
+                                #     printLine.append( procid )
+                                #     if finalstateSHOW:
+                                #         printLine.append( str(getAtomFinalstate(atomOut,procid)) )
 
-            #                         printLine.append( excluded )
+                                #     printLine.append( excluded )
 
-            #                         outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
-            #                         atomPrint.append([str(i) for i in printLine])
-            #                         outData.append([str(i) for i in outLine])    
+                                #     outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
+                                #     atomPrint.append([str(i) for i in printLine])
+                                #     outData.append([str(i) for i in outLine])    
 
             #                     elif not subprocSHOW and procid == 0:    
 
@@ -204,9 +250,9 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
 
     atomPrint.insert(0,printHeader)
     outData.insert(0,printHeader)
-    print atom_limit.tabulate.tabulate(atomPrint, headers="firstrow", tablefmt="rst")
+    print tabulate(atomPrint, headers="firstrow", tablefmt="rst")
     print bcolors.ENDC
-    outData=atom_limit.tabulate.tabulate(outData, headers="firstrow", tablefmt="rst")
+    outData=tabulate(outData, headers="firstrow", tablefmt="rst")
     return outData
 
 # print "\n" + bcolors.OKGREEN + anaNAME + bcolors.ENDC + \
