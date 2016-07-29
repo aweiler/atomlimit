@@ -41,7 +41,7 @@ for anaName in anaList:
    
     print srlistSTR
 
-    dictList = []
+    dictList = dict()
 
     for srlistEntry in srlistSTR:
         print srlistEntry
@@ -51,12 +51,12 @@ for anaName in anaList:
             sr_info += srlistEntry[idm]
             if not idm+1 == len(srlistEntry): sr_info +=' '
         print sr_info
-        oneSRdict = dict()
-        oneSRdict[sr_info] = dict (
+        
+        dictList[sr_info] = dict (
             # Name = sr_info,
             Type = "CutAndCount",
-            #Luminosity =  float(srlistEntry[1]),
-            #rootS =  float(srlistEntry[0]),
+            # Luminosity =  float(srlistEntry[1]),
+            # rootS =  float(srlistEntry[0]),
             Observed =  int(srlistEntry[2]),
             Background =  float(srlistEntry[3]),
             SystematicError =  float(srlistEntry[4]),
@@ -66,10 +66,11 @@ for anaName in anaList:
             UpperXsecFB95exp =  float(srlistEntry[8])
             ) 
         
-        dictList.append(oneSRdict)
+        # dictList.append(oneSRdict)
 
     yamlFile = dict( 
         Name= anaName, 
+        Luminosity=float(srlistEntry[1]),
         SignalRegions = dictList
         )
     yamlName = anaName + ".stat"

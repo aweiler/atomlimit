@@ -1,6 +1,7 @@
+Luminosity: 20.7
 Name: ATLAS_CONF_2013_007
 SignalRegions:
-- SR0b DC:
+  SR0b DC:
     Background: 7.5
     Observed: 5
     SystematicError: 3.3
@@ -9,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 6.7
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.33
-- SR1b DC:
+  SR1b DC:
     Background: 3.7
     Observed: 8
     SystematicError: 1.6
@@ -18,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 11.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.53
-- SR3b DC:
+  SR3b DC:
     Background: 3.1
     Observed: 4
     SystematicError: 1.6

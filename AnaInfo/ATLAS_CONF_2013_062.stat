@@ -1,15 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_062
 SignalRegions:
-- SL1b_low:
-    Background: 6.1
-    Observed: 8
-    SystematicError: 1.4
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 8.8
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.43
-- SL1b_high:
+  SL1b_high:
     Background: 4.0
     Observed: 6
     SystematicError: 1.1
@@ -18,16 +10,16 @@ SignalRegions:
     UpperLimit95obs: 7.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.39
-- SL2b_low:
-    Background: 24.1
-    Observed: 24
-    SystematicError: 4.1
+  SL1b_low:
+    Background: 6.1
+    Observed: 8
+    SystematicError: 1.4
     Type: CutAndCount
     UpperLimit95exp: -1.0
-    UpperLimit95obs: 13.4
+    UpperLimit95obs: 8.8
     UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.66
-- SL2b_high:
+    UpperXsecFB95obs: 0.43
+  SL2b_high:
     Background: 3.6
     Observed: 3
     SystematicError: 1.4
@@ -36,25 +28,16 @@ SignalRegions:
     UpperLimit95obs: 5.3
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.26
-- SL3j:
-    Background: 5.6
-    Observed: 7
-    SystematicError: 1.6
+  SL2b_low:
+    Background: 24.1
+    Observed: 24
+    SystematicError: 4.1
     Type: CutAndCount
     UpperLimit95exp: -1.0
-    UpperLimit95obs: 8.1
+    UpperLimit95obs: 13.4
     UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.4
-- SL5j:
-    Background: 14.8
-    Observed: 9
-    SystematicError: 3.7
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 7.1
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.35
-- SL2m:
+    UpperXsecFB95obs: 0.66
+  SL2m:
     Background: 1.6
     Observed: 7
     SystematicError: 1.0
@@ -63,7 +46,25 @@ SignalRegions:
     UpperLimit95obs: 11.5
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.57
-- incHL3j_e:
+  SL3j:
+    Background: 5.6
+    Observed: 7
+    SystematicError: 1.6
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 8.1
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.4
+  SL5j:
+    Background: 14.8
+    Observed: 9
+    SystematicError: 3.7
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 7.1
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.35
+  incHL3j_e:
     Background: 3.9
     Observed: 4
     SystematicError: 1.0
@@ -72,7 +73,7 @@ SignalRegions:
     UpperLimit95obs: 6.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.3
-- incHL3j_m:
+  incHL3j_m:
     Background: 2.7
     Observed: 5
     SystematicError: 0.9
@@ -81,7 +82,7 @@ SignalRegions:
     UpperLimit95obs: 7.7
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.38
-- incHL5j_e:
+  incHL5j_e:
     Background: 3.6
     Observed: 4
     SystematicError: 1.0
@@ -90,7 +91,7 @@ SignalRegions:
     UpperLimit95obs: 6.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.3
-- incHL5j_m:
+  incHL5j_m:
     Background: 2.5
     Observed: 2
     SystematicError: 0.8
@@ -99,7 +100,7 @@ SignalRegions:
     UpperLimit95obs: 4.6
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.22
-- incHL6j_e:
+  incHL6j_e:
     Background: 2.0
     Observed: 2
     SystematicError: 0.7
@@ -108,7 +109,7 @@ SignalRegions:
     UpperLimit95obs: 4.6
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.23
-- incHL6j_m:
+  incHL6j_m:
     Background: 1.7
     Observed: 0
     SystematicError: 0.6

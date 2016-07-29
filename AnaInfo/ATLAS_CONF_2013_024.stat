@@ -1,6 +1,7 @@
+Luminosity: 20.5
 Name: ATLAS_CONF_2013_024
 SignalRegions:
-- 'SR1: MET > 200':
+  'SR1: MET > 200':
     Background: 17.5
     Observed: 15
     SystematicError: 3.2
@@ -9,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 10.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.49
-- 'SR2: MET > 300':
+  'SR2: MET > 300':
     Background: 4.7
     Observed: 2
     SystematicError: 1.5
@@ -18,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 3.6
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.17
-- 'SR3: MET > 350':
+  'SR3: MET > 350':
     Background: 2.7
     Observed: 1
     SystematicError: 1.2

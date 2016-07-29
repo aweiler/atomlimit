@@ -1,15 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_048
 SignalRegions:
-- SR M90:
-    Background: 300.0
-    Observed: 260
-    SystematicError: 40.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 50.75
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 2.5
-- SR M100:
+  SR M100:
     Background: 4.8
     Observed: 3
     SystematicError: 2.2
@@ -18,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 5.481
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.27
-- SR M110:
+  SR M110:
     Background: 11.0
     Observed: 7
     SystematicError: 4.0
@@ -27,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 8.12
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.4
-- SR M120:
+  SR M120:
     Background: 4.3
     Observed: 3
     SystematicError: 1.3
@@ -36,3 +28,12 @@ SignalRegions:
     UpperLimit95obs: 4.669
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.23
+  SR M90:
+    Background: 300.0
+    Observed: 260
+    SystematicError: 40.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 50.75
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 2.5

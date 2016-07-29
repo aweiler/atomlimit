@@ -1,60 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_049
 SignalRegions:
-- 'ee: mT2 > 90':
-    Background: 16.6
-    Observed: 15
-    SystematicError: 2.3
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 8.932
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.44
-- 'em: mT2 > 90':
-    Background: 20.7
-    Observed: 19
-    SystematicError: 3.2
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 10.353
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.51
-- 'mm: mT2 > 90':
-    Background: 22.4
-    Observed: 19
-    SystematicError: 3.3
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 9.541
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.47
-- 'ee: mT2 > 110':
-    Background: 6.1
-    Observed: 4
-    SystematicError: 2.2
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 5.481
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.27
-- 'em: mT2 > 110':
-    Background: 4.4
-    Observed: 5
-    SystematicError: 2.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 7.105
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.35
-- 'mm: mT2 > 110':
-    Background: 6.3
-    Observed: 4
-    SystematicError: 2.4
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 5.684
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.28
-- WWa:
+  WWa:
     Background: 117.9
     Observed: 123
     SystematicError: 14.6
@@ -63,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 39.382
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.94
-- WWb:
+  WWb:
     Background: 13.6
     Observed: 16
     SystematicError: 2.3
@@ -72,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 11.774
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.58
-- WWc:
+  WWc:
     Background: 7.4
     Observed: 9
     SystematicError: 1.5
@@ -81,3 +28,57 @@ SignalRegions:
     UpperLimit95obs: 8.729
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.43
+  'ee: mT2 > 110':
+    Background: 6.1
+    Observed: 4
+    SystematicError: 2.2
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 5.481
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.27
+  'ee: mT2 > 90':
+    Background: 16.6
+    Observed: 15
+    SystematicError: 2.3
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 8.932
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.44
+  'em: mT2 > 110':
+    Background: 4.4
+    Observed: 5
+    SystematicError: 2.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 7.105
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.35
+  'em: mT2 > 90':
+    Background: 20.7
+    Observed: 19
+    SystematicError: 3.2
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 10.353
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.51
+  'mm: mT2 > 110':
+    Background: 6.3
+    Observed: 4
+    SystematicError: 2.4
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 5.684
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.28
+  'mm: mT2 > 90':
+    Background: 22.4
+    Observed: 19
+    SystematicError: 3.3
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 9.541
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.47

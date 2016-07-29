@@ -1,159 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_054
 SignalRegions:
-- 8j50 flavor 0 b-jets:
-    Background: 35.0
-    Observed: 40
-    SystematicError: 4.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 20.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.97
-- 8j50 flavor 1 b-jets:
-    Background: 40.0
-    Observed: 44
-    SystematicError: 10.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 23.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 1.1
-- 8j50 flavor >=2 b-jets:
-    Background: 50.0
-    Observed: 44
-    SystematicError: 10.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 22.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 1.1
-- 9j50 flavor 0 b-jets:
-    Background: 3.3
-    Observed: 5
-    SystematicError: 0.7
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 7.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.34
-- 9j50 flavor 1 b-jets:
-    Background: 6.1
-    Observed: 8
-    SystematicError: 1.7
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 9.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.43
-- 9j50 flavor >=2 b-jets:
-    Background: 8.0
-    Observed: 7
-    SystematicError: 2.7
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 7.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.37
-- 10j50 flavor:
-    Background: 1.37
-    Observed: 3
-    SystematicError: 0.35
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 6.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.29
-- 7j80 flavor 0 b-jets:
-    Background: 11.0
-    Observed: 12
-    SystematicError: 2.2
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 10.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.5
-- 7j80 flavor 1 b-jets:
-    Background: 17.0
-    Observed: 17
-    SystematicError: 6.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 16.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.8
-- 7j80 flavor >=2 b-jets:
-    Background: 25.0
-    Observed: 13
-    SystematicError: 10.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 12.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.6
-- 8j80 flavor 0 b-jets:
-    Background: 0.9
-    Observed: 2
-    SystematicError: 0.6
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 5.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.24
-- 8j80 flavor 1 b-jets:
-    Background: 1.5
-    Observed: 1
-    SystematicError: 0.9
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 3.5
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.17
-- 8j80 flavor >=2 b-jets:
-    Background: 3.3
-    Observed: 3
-    SystematicError: 2.2
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 6.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.31
-- 8j50 MJ 340:
-    Background: 75.0
-    Observed: 69
-    SystematicError: 19.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 35.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 1.7
-- 8j50 MJ 420:
-    Background: 45.0
-    Observed: 37
-    SystematicError: 14.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 20.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 1.0
-- 9j50 MJ 340:
-    Background: 17.0
-    Observed: 13
-    SystematicError: 7.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 11.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.5
-- 9j50 MJ 420:
-    Background: 11.0
-    Observed: 9
-    SystematicError: 5.0
-    Type: CutAndCount
-    UpperLimit95exp: -1.0
-    UpperLimit95obs: 10.0
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: 0.5
-- 10j50 MJ 340:
+  10j50 MJ 340:
     Background: 3.2
     Observed: 1
     SystematicError: 3.45
@@ -162,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 4.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.2
-- 10j50 MJ 420:
+  10j50 MJ 420:
     Background: 2.2
     Observed: 1
     SystematicError: 2.0
@@ -171,3 +19,156 @@ SignalRegions:
     UpperLimit95obs: 4.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.2
+  10j50 flavor:
+    Background: 1.37
+    Observed: 3
+    SystematicError: 0.35
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 6.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.29
+  7j80 flavor 0 b-jets:
+    Background: 11.0
+    Observed: 12
+    SystematicError: 2.2
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 10.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.5
+  7j80 flavor 1 b-jets:
+    Background: 17.0
+    Observed: 17
+    SystematicError: 6.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 16.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.8
+  7j80 flavor >=2 b-jets:
+    Background: 25.0
+    Observed: 13
+    SystematicError: 10.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 12.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.6
+  8j50 MJ 340:
+    Background: 75.0
+    Observed: 69
+    SystematicError: 19.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 35.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 1.7
+  8j50 MJ 420:
+    Background: 45.0
+    Observed: 37
+    SystematicError: 14.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 20.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 1.0
+  8j50 flavor 0 b-jets:
+    Background: 35.0
+    Observed: 40
+    SystematicError: 4.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 20.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.97
+  8j50 flavor 1 b-jets:
+    Background: 40.0
+    Observed: 44
+    SystematicError: 10.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 23.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 1.1
+  8j50 flavor >=2 b-jets:
+    Background: 50.0
+    Observed: 44
+    SystematicError: 10.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 22.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 1.1
+  8j80 flavor 0 b-jets:
+    Background: 0.9
+    Observed: 2
+    SystematicError: 0.6
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 5.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.24
+  8j80 flavor 1 b-jets:
+    Background: 1.5
+    Observed: 1
+    SystematicError: 0.9
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 3.5
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.17
+  8j80 flavor >=2 b-jets:
+    Background: 3.3
+    Observed: 3
+    SystematicError: 2.2
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 6.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.31
+  9j50 MJ 340:
+    Background: 17.0
+    Observed: 13
+    SystematicError: 7.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 11.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.5
+  9j50 MJ 420:
+    Background: 11.0
+    Observed: 9
+    SystematicError: 5.0
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 10.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.5
+  9j50 flavor 0 b-jets:
+    Background: 3.3
+    Observed: 5
+    SystematicError: 0.7
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 7.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.34
+  9j50 flavor 1 b-jets:
+    Background: 6.1
+    Observed: 8
+    SystematicError: 1.7
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 9.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.43
+  9j50 flavor >=2 b-jets:
+    Background: 8.0
+    Observed: 7
+    SystematicError: 2.7
+    Type: CutAndCount
+    UpperLimit95exp: -1.0
+    UpperLimit95obs: 7.0
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: 0.37

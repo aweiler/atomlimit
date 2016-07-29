@@ -1,6 +1,7 @@
+Luminosity: 5.8
 Name: ATLAS_CONF_2012_109
 SignalRegions:
-- A Loose:
+  A Loose:
     Background: 650.0
     Observed: 643
     SystematicError: 130.0
@@ -9,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 224.8
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 38.8
-- A Medium:
+  A Medium:
     Background: 140.0
     Observed: 111
     SystematicError: 33.0
@@ -18,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 33.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 5.84
-- A Tight:
+  A Tight:
     Background: 14.0
     Observed: 10
     SystematicError: 5.0
@@ -27,7 +28,7 @@ SignalRegions:
     UpperLimit95obs: 8.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.53
-- B Medium:
+  B Medium:
     Background: 115.0
     Observed: 106
     SystematicError: 30.0
@@ -36,7 +37,7 @@ SignalRegions:
     UpperLimit95obs: 43.8
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 7.55
-- B Tight:
+  B Tight:
     Background: 8.7
     Observed: 7
     SystematicError: 3.4
@@ -45,7 +46,7 @@ SignalRegions:
     UpperLimit95obs: 7.3
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.26
-- C Loose:
+  C Loose:
     Background: 155.0
     Observed: 156
     SystematicError: 31.0
@@ -54,7 +55,7 @@ SignalRegions:
     UpperLimit95obs: 65.7
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 11.3
-- C Medium:
+  C Medium:
     Background: 33.0
     Observed: 31
     SystematicError: 8.0
@@ -63,7 +64,7 @@ SignalRegions:
     UpperLimit95obs: 17.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 3.09
-- C Tight:
+  C Tight:
     Background: 2.8
     Observed: 1
     SystematicError: 1.2
@@ -72,7 +73,7 @@ SignalRegions:
     UpperLimit95obs: 3.3
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.57
-- D Tight:
+  D Tight:
     Background: 6.3
     Observed: 5
     SystematicError: 2.1
@@ -81,7 +82,7 @@ SignalRegions:
     UpperLimit95obs: 6.0
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.03
-- E Loose:
+  E Loose:
     Background: 5.7
     Observed: 9
     SystematicError: 1.7
@@ -90,7 +91,7 @@ SignalRegions:
     UpperLimit95obs: 10.4
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.79
-- E Medium:
+  E Medium:
     Background: 3.5
     Observed: 7
     SystematicError: 1.7
@@ -99,7 +100,7 @@ SignalRegions:
     UpperLimit95obs: 9.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.71
-- E Tight:
+  E Tight:
     Background: 10.0
     Observed: 9
     SystematicError: 4.0

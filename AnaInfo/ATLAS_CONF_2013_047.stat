@@ -1,6 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_047
 SignalRegions:
-- A Loose:
+  A Loose:
     Background: 4700.0
     Observed: 5333
     SystematicError: 500.0
@@ -9,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 1341.2
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 66.07
-- A Medium:
+  A Medium:
     Background: 122.0
     Observed: 135
     SystematicError: 18.0
@@ -18,7 +19,7 @@ SignalRegions:
     UpperLimit95obs: 51.3
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 2.52
-- B Medium:
+  B Medium:
     Background: 33.0
     Observed: 29
     SystematicError: 7.0
@@ -27,7 +28,7 @@ SignalRegions:
     UpperLimit95obs: 14.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.73
-- B Tight:
+  B Tight:
     Background: 2.4
     Observed: 4
     SystematicError: 1.4
@@ -36,7 +37,7 @@ SignalRegions:
     UpperLimit95obs: 6.7
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.33
-- C Medium:
+  C Medium:
     Background: 210.0
     Observed: 228
     SystematicError: 40.0
@@ -45,7 +46,7 @@ SignalRegions:
     UpperLimit95obs: 81.2
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 4.0
-- C Tight:
+  C Tight:
     Background: 1.6
     Observed: 0
     SystematicError: 1.4
@@ -54,7 +55,7 @@ SignalRegions:
     UpperLimit95obs: 2.4
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.12
-- D:
+  D:
     Background: 15.0
     Observed: 18
     SystematicError: 5.0
@@ -63,7 +64,7 @@ SignalRegions:
     UpperLimit95obs: 15.5
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.77
-- E Loose:
+  E Loose:
     Background: 113.0
     Observed: 166
     SystematicError: 21.0
@@ -72,7 +73,7 @@ SignalRegions:
     UpperLimit95obs: 92.4
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 4.55
-- E Medium:
+  E Medium:
     Background: 30.0
     Observed: 41
     SystematicError: 8.0
@@ -81,7 +82,7 @@ SignalRegions:
     UpperLimit95obs: 28.6
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 1.41
-- E Tight:
+  E Tight:
     Background: 2.9
     Observed: 5
     SystematicError: 1.8

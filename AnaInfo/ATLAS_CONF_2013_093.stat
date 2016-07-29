@@ -1,6 +1,7 @@
+Luminosity: 20.3
 Name: ATLAS_CONF_2013_093
 SignalRegions:
-- SRAh:
+  SRAh:
     Background: 5.4
     Observed: 4
     SystematicError: 3.1
@@ -9,7 +10,7 @@ SignalRegions:
     UpperLimit95obs: 6.9
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: 0.34
-- SRBh:
+  SRBh:
     Background: 2.1
     Observed: 2
     SystematicError: 0.7

@@ -61,108 +61,125 @@ def getAtomFinalstate(atomYML,procID):
             retFinalstate =  sbData["Process ID Final State"]
     return retFinalstate
 
-def get_results_atom(ana_dict, atomOut, xsecin , xsecSubProc):
+def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
     results = {}
     warning_list = []
     atomPrint = []
     outData = []
-    print 
-
-    for ana, anaData in ana_dict.iteritems():
-        for sr_name, srData in anaData.sr_dict.iteritems():
-            logeffdict={}            
-            
-            atomAnaName = ana
-                
-            try:
-                #print atomAnaName
-                for effItem in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
-                    #
-                    excluded = ""
-                    effvalue = 0.
-                    #efferror = effItem["Error"][0]["Stat"][1]                   
-                    if effItem["Efficiency Name"] == srData.sr_info:
-                        #print "found one" , ana, srData.sr_info, effItem["Data"]
-                        for effData in effItem["Data"]:
-                            effvalue = effData["Efficiency Value"]
-                            efferror = effData["Efficiency Stat Error"]
-                            #print efferror
-                            procid = effData["Sub-process ID"]
-
-                            printLine = []
-                            outLine = []
-
-                            if effvalue > 0.:
-                                
-                                printcolor = bcolors.ENDC
-                                
-
-                                nvis = float(effvalue) * float(xsecSubProc[procid]) * anaData.lumi
-                                nvisOn95 = float(nvis) / float(srData.UL_nvis_obs)
-                                fstate = str(getAtomFinalstate(atomOut,procid))
-
-                                nviserror = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi for errorelement in efferror ]
-                                nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi  / float(srData.UL_nvis_obs) for errorelement in efferror ]
-
-                                #print srData.UL_nvis_obs, nvisOn95, nvisOn95error, (nvisOn95 + nvisOn95error[0])
-
-                                if nvisOn95 > 1:
-                                    excluded = " <- excluded"
-                                    printcolor = bcolors.FAIL
-                                
-                                if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1: # 
-                                    excluded = " <- excluded? (LOW STAT)"
-                                    #print excluded
-                                    printcolor = bcolors.WARNING
-
-                                printLine =  [ printcolor + ana , srData.sr_info,effvalue, nvis, nvisOn95,  ]
-
-                                if errorSHOW:
-                                    #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
-                                    printLine =  [ printcolor + ana , srData.sr_info, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
-                                    #print printLine
-
-                                if subprocSHOW:
-
-                                    printLine.append( procid )
-                                    if finalstateSHOW:
-                                        printLine.append( str(getAtomFinalstate(atomOut,procid)) )
-
-                                    printLine.append( excluded )
-
-                                    outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
-                                    atomPrint.append([str(i) for i in printLine])
-                                    outData.append([str(i) for i in outLine])    
-
-                                elif not subprocSHOW and procid == 0:    
-
-                                    printLine.append( excluded )
-                                    outLine = [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecin)*   anaData.lumi, float(effvalue)*float(xsecin)*anaData.lumi/float(srData. UL_nvis_obs), procid, excluded ]
-                                    atomPrint.append([str(i) for i in printLine])
-                                    outData.append([str(i) for i in outLine])
     
-                                # elif subprocSHOW and not finalstateSHOW:
 
-                                #     printLine.append( procid )
-                                #     printLine.append( excluded )
+    for atomAnaName in atomOut["Analyses"].keys():
+        print atomAnaName
+        
 
-                                #     outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, excluded ]
-                                #     atomPrint.append([str(i) for i in printLine])
-                                #     outData.append([str(i) for i in outLine])
-                                #     #atomPrint.append(printLine)
-                                
-                                # print "debug opts ",subprocSHOW , procid , finalstateSHOW
+        for signal_region in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
+            logeffdict={} 
+            sr_name = signal_region["Efficiency Name"]           
+            # print signal_region, sr_name
+            
+            try:
+                # print anaStat[atomAnaName]
+                print anaStat[atomAnaName]["SignalRegions"][sr_name]
+                for effData in signal_region["Data"]:
+                    effvalue = effData["Efficiency Value"]
+                    efferror = effData["Efficiency Stat Error"]
+                            #print efferror
+                    procid = effData["Sub-process ID"]
+                    print effvalue, efferror, procid
 
-                                
-                                excluded = ""
+
+                
             except KeyError:
-                #print "Unexpected error:", sys.exc_info()[0]
-                pass    
+                print "Couldn't get analysis Stat info", atomAnaName,sr_name
+                
+            # try:
+            #     #print atomAnaName
+            #     for effItem in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
+            #         #
+            #         excluded = ""
+            #         effvalue = 0.
+            #         #efferror = effItem["Error"][0]["Stat"][1]                   
+            #         if effItem["Efficiency Name"] == srData.sr_info:
+            #             #print "found one" , ana, srData.sr_info, effItem["Data"]
+            #             for effData in effItem["Data"]:
+            #                 effvalue = effData["Efficiency Value"]
+            #                 efferror = effData["Efficiency Stat Error"]
+            #                 #print efferror
+            #                 procid = effData["Sub-process ID"]
 
-            except:
-                print "Unexpected error:", sys.exc_info()
-                pass    
-            #print "done"       
+            #                 printLine = []
+            #                 outLine = []
+
+            #                 if effvalue > 0.:
+                                
+            #                     printcolor = bcolors.ENDC
+                                
+            #                     nvis = float(effvalue) * float(xsecSubProc[procid]) * anaData.lumi
+            #                     nvisOn95 = float(nvis) / float(srData.UL_nvis_obs)
+            #                     fstate = str(getAtomFinalstate(atomOut,procid))
+
+            #                     nviserror = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi for errorelement in efferror ]
+            #                     nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi  / float(srData.UL_nvis_obs) for errorelement in efferror ]
+
+            #                     #print srData.UL_nvis_obs, nvisOn95, nvisOn95error, (nvisOn95 + nvisOn95error[0])
+
+            #                     if nvisOn95 > 1:
+            #                         excluded = " <- excluded"
+            #                         printcolor = bcolors.FAIL
+                                
+            #                     if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1: # 
+            #                         excluded = " <- excluded? (LOW STAT)"
+            #                         #print excluded
+            #                         printcolor = bcolors.WARNING
+
+            #                     printLine =  [ printcolor + ana , srData.sr_info,effvalue, nvis, nvisOn95,  ]
+
+            #                     if errorSHOW:
+            #                         #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
+            #                         printLine =  [ printcolor + ana , srData.sr_info, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
+            #                         #print printLine
+
+            #                     if subprocSHOW:
+
+            #                         printLine.append( procid )
+            #                         if finalstateSHOW:
+            #                             printLine.append( str(getAtomFinalstate(atomOut,procid)) )
+
+            #                         printLine.append( excluded )
+
+            #                         outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
+            #                         atomPrint.append([str(i) for i in printLine])
+            #                         outData.append([str(i) for i in outLine])    
+
+            #                     elif not subprocSHOW and procid == 0:    
+
+            #                         printLine.append( excluded )
+            #                         outLine = [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecin)*   anaData.lumi, float(effvalue)*float(xsecin)*anaData.lumi/float(srData. UL_nvis_obs), procid, excluded ]
+            #                         atomPrint.append([str(i) for i in printLine])
+            #                         outData.append([str(i) for i in outLine])
+    
+            #                     # elif subprocSHOW and not finalstateSHOW:
+
+            #                     #     printLine.append( procid )
+            #                     #     printLine.append( excluded )
+
+            #                     #     outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, excluded ]
+            #                     #     atomPrint.append([str(i) for i in printLine])
+            #                     #     outData.append([str(i) for i in outLine])
+            #                     #     #atomPrint.append(printLine)
+                                
+            #                     # print "debug opts ",subprocSHOW , procid , finalstateSHOW
+
+                                
+            #                     excluded = ""
+            # except KeyError:
+            #     #print "Unexpected error:", sys.exc_info()[0]
+            #     pass    
+
+            # except:
+            #     print "Unexpected error:", sys.exc_info()
+            #     pass    
+            # #print "done"       
 
     # printHeader = ['Analysis','Signal Region', 'efficiency', 'Nvis','Nvis/N95','Process-ID','']
 
@@ -272,7 +289,7 @@ if __name__ == "__main__":
     #     ana_dict.update(ana_dict_7)
     # else:
     #     ana_list_7 = []
-    print allAnaStat
+    
     logging.info('Reading Atom file <' + args.inputfile + ">...")    
 
     try:
@@ -316,6 +333,9 @@ if __name__ == "__main__":
 
     AtomRunInfo = yaml.dump(AtomData["Atom Run Info"], default_flow_style=False) 
     
+    
+
+
     results_8 = {}
     results_7 = {}
    
@@ -336,7 +356,7 @@ if __name__ == "__main__":
     finalstateSHOW = args.finalstateINFO
     errorSHOW = args.errorINFO
 
-    outData = get_results_atom(ana_dict_8, AtomData, tot_cross_section_in,atomXsecSubProc)
+    outData = get_results_atom(allAnaStat, AtomData, tot_cross_section_in,atomXsecSubProc)
     
     outputfile="atom_limit.out"
     if args.outfilename:
