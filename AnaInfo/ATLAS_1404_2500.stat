@@ -19,3 +19,30 @@ SignalRegions:
     UpperLimit95obs: 16.3
     UpperXsecFB95exp: -1.0
     UpperXsecFB95obs: -1.0
+  SR1b:
+    Background: 4.7
+    Observed: 10
+    SystematicError: 2.1
+    Type: CutAndCount
+    UpperLimit95exp: 8.0
+    UpperLimit95obs: 13.3
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
+  SR3Llow:
+    Background: 4.3
+    Observed: 6
+    SystematicError: 2.1
+    Type: CutAndCount
+    UpperLimit95exp: 7.2
+    UpperLimit95obs: 8.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
+  SR3Lhigh:
+    Background: 2.5
+    Observed: 2
+    SystematicError: 0.9
+    Type: CutAndCount
+    UpperLimit95exp: 5.0
+    UpperLimit95obs: 4.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
