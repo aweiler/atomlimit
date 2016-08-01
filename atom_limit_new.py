@@ -6,6 +6,9 @@
 __author__ = "A.Weiler"
 __version__ = "0.1"
 
+# Add Control Region information ? 
+#-> Check if flag
+
 
 import os
 import subprocess
@@ -68,6 +71,8 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
     warning_list = []
     atomPrint = []
     outData = []
+
+    excluded = ""
     
 
     for atomAnaName in atomOut["Analyses"].keys():
@@ -110,7 +115,7 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                             excluded = " <- excluded"
                             printcolor = bcolors.FAIL
                                 
-                        if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1:  # error 
+                        if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1:  # not enough statistics to claim an exclusion, 1 sigma error is below limit
                             excluded = " <- excluded? (LOW STAT!)"
 
                         printLine =  [ printcolor + atomAnaName , sr_name,effvalue, nvis, nvisOn95,  ]
