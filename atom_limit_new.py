@@ -18,6 +18,7 @@ from math import *
 
 #from collections import *
 import yaml
+import json
 
 from tabulate import tabulate
 
@@ -80,17 +81,17 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
     for atomAnaName in atomOut["Analyses"].keys():
         
         integrated_lumi = atomOut["Analyses"][atomAnaName]["Luminosity"]["Value"]
-        print atomAnaName,integrated_lumi 
+
 
         for signal_region in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
             logeffdict={} 
             
             sr_name = signal_region["Efficiency Name"]           
-            print sr_name
             
             try:
                 # print anaStat[atomAnaName]
-                print anaStat[atomAnaName]["SignalRegions"][sr_name]
+                dummy =  anaStat[atomAnaName]["SignalRegions"][sr_name] # check if it exists, won't use dummy anymore
+
                 for effData in signal_region["Data"]:
                     excluded = "" 
                     effvalue = effData["Efficiency Value"]
@@ -98,14 +99,24 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                             
                     procid = effData["Sub-process ID"]
                     if effvalue > 0:
-                        print effvalue, efferror, procid
+                        # print effvalue, efferror, procid
 
                         nvis = float(effvalue) * float(xsecSubProc[procid]) * integrated_lumi
                         
-                        obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperLimit95obs"])
+                        try:
+                            obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperLimit95obs"])
+                            if obs95CLnevents < 0:
+                                raise Exception('Negative Nevents95')
+                        except:
+                            try:
+                                obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperXsecFB95obs"]) * integrated_lumi
+                                if obs95CLnevents<0:
+                                    raise Exception('Negative UpperXsecFB95obs')
+                            except:
+                                logging.warning("Could not find signal region limit information for " + atomAnaName + "  " + sr_name)
 
                         nvisOn95 = float(nvis) / obs95CLnevents
-                        print nvis, nvisOn95, xsecSubProc[procid]
+                        #print nvis, nvisOn95, xsecSubProc[procid]
 
                         fstate = str(getAtomFinalstate(atomOut,procid))
 
@@ -152,7 +163,7 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                         for effS in AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"]:
                             
                             if effS["Efficiency Name"] == sr_name:
-                                print "Found it", sr_name, procid
+                                #print "Found it", sr_name, procid
                                 anaStat[atomAnaName]["SignalRegions"][sr_name][str(procid)] = dict(  NvisibleEvents = nvis, NvisibleEventsoverN95 =  nvisOn95 )
                                 
 
@@ -178,7 +189,8 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
 
                 
             except KeyError:
-                print "Couldn't get analysis Stat info", atomAnaName,sr_name
+                logging.warning("Could not find signal region limit information for " + atomAnaName + "  " + sr_name)
+                
                 
             # try:
             #     #print atomAnaName
@@ -370,7 +382,7 @@ if __name__ == "__main__":
     logging.info('Reading ATLAS/CMS limits...') 
     if os.path.exists(analysisInfoDir): 
         ana_list = os.listdir(analysisInfoDir)
-        print ana_list
+        #print ana_list
         for ana_filename in ana_list:
             oneAna=loadATOMstatInfo(os.path.join(analysisInfoDir, ana_filename))
             allAnaStat[oneAna["Name"]] = oneAna
@@ -465,11 +477,21 @@ if __name__ == "__main__":
     fout.write(outData)
     fout.close()
 
-    yamlName = args.inputfile + ".stat"
+    yamlName = args.inputfile + ".limit"
     logging.info('Updating '+  args.inputfile  +' including limit result to: <'+ yamlName + '>' )
     
-    with open(yamlName, 'w') as outfile:
-        outfile.write( yaml.dump(AtomDataInclStat,default_flow_style=False) )
+    #with open(yamlName, 'w') as outfile:
+        #outDump =  yaml.dump(AtomDataInclStat,default_flow_style=False)
+       # outfile.write( outDump )
+
+    #outfile.close()
+
+    logging.info('Writing mathematica input file including limit result to: <'+ yamlName + '.mathematica>' )
+    
+
+    with open(yamlName+".mathematica", 'w') as outfile:
+         json.dump(AtomDataInclStat, outfile, indent=4) 
+
 
     outfile.close()
     
