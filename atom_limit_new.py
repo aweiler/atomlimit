@@ -80,7 +80,8 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
 
     for atomAnaName in atomOut["Analyses"].keys():
         
-        integrated_lumi = atomOut["Analyses"][atomAnaName]["Luminosity"]["Value"]
+        # in pb
+        integrated_lumi = atomOut["Analyses"][atomAnaName]["Luminosity"]["Value"] 
 
 
         for signal_region in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
@@ -338,7 +339,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(   # AW added minimal command-line parsers to keep compatibility with scripts
                 description='Atom Limit: Automatic Limits Of Models. Run atom results against visible cross section limits.')
 
-    parser.add_argument("-c","--cross-section", dest="tot_cross_section_in", metavar="cross-section in fb",
+    parser.add_argument("-c","--cross-section", dest="tot_cross_section_in", metavar="cross-section in pb",
                        help="Total cross-section", type=float)
 
     parser.add_argument("-o","-H", "--output", dest="outfilename", default=[],
@@ -414,10 +415,10 @@ if __name__ == "__main__":
     for xsecElement in AtomData["Cross Sections"]:    
         try:
             if xsecElement["Process ID"] == 0:
-                atomXsec = xsecElement["Cross Section"] * 1000 # Atom gives pb cross-section, we use fb
-                atomXsecSubProc[0] = atomXsec * 1000
+                atomXsec = xsecElement["Cross Section"]  # Atom gives pb cross-section, we use pb here
+                atomXsecSubProc[0] = atomXsec 
             else: 
-                atomXsecSubProc[xsecElement["Process ID"]] = xsecElement["Cross Section"] *1000 
+                atomXsecSubProc[xsecElement["Process ID"]] = xsecElement["Cross Section"]
         except:
             pass
 
@@ -425,14 +426,14 @@ if __name__ == "__main__":
     
     if args.tot_cross_section_in:
         tot_cross_section_in = args.tot_cross_section_in
-        xsecInfo = 'Using provided cross-section ' + str(tot_cross_section_in) + ' fb' 
+        xsecInfo = 'Using provided cross-section ' + str(tot_cross_section_in) + ' pb' 
         logging.info(xsecInfo) 
         if args.subprocINFO == True:
             logging.warning("Switching off sub-processes because we do not have xsec information." )
             args.subprocINFO = False 
     elif atomXsec > 0:        
         tot_cross_section_in = atomXsec 
-        xsecInfo = 'Taking cross-section from AtomFile: ' + str(tot_cross_section_in) + ' fb ' 
+        xsecInfo = 'Taking cross-section from AtomFile: ' + str(tot_cross_section_in) + ' pb ' 
         logging.info(xsecInfo ) 
     else:
         logging.error("Invalid cross-section.")
@@ -463,35 +464,30 @@ if __name__ == "__main__":
     errorSHOW = args.errorINFO
 
     outData = get_results_atom(allAnaStat, AtomData, tot_cross_section_in,atomXsecSubProc)
-    
-    outputfile="atom_limit.out"
+       
+    # AtomRunInfo = "Input File: "+ args.inputfile + " \n" + xsecInfo + " \n\n" + AtomRunInfo
+
+    # AtomRunInfo= commentText(AtomRunInfo)
+    # fout.write(AtomRunInfo)
+    # fout.write(outData)
+    # fout.close()
+
+   # outputfile="atom_limit.out"
     if args.outfilename:
         outputfile=args.outfilename
-    logging.info('Writing result to: <'+ outputfile + '>' )
+        logging.info('Writing result to: <'+ outputfile + '>' )
 
-    fout = open(outputfile, "w")
-    AtomRunInfo = "Input File: "+ args.inputfile + " \n" + xsecInfo + " \n\n" + AtomRunInfo
+        yamlName = args.inputfile + ".limit"
+        logging.info('Updating '+  args.inputfile  +' including limit result to: <'+ yamlName + '>' )
+        with open(yamlName, 'w') as outfile:
+            outDump =  yaml.dump(AtomDataInclStat,default_flow_style=False)
+            outfile.write( outDump )
+            outfile.close()
 
-    AtomRunInfo= commentText(AtomRunInfo)
-    fout.write(AtomRunInfo)
-    fout.write(outData)
-    fout.close()
+    logging.info('Writing mathematica input file including limit result to: <'+ args.inputfile + '.mathematica>' )    
 
-    yamlName = args.inputfile + ".limit"
-    logging.info('Updating '+  args.inputfile  +' including limit result to: <'+ yamlName + '>' )
-    
-    #with open(yamlName, 'w') as outfile:
-        #outDump =  yaml.dump(AtomDataInclStat,default_flow_style=False)
-       # outfile.write( outDump )
-
-    #outfile.close()
-
-    logging.info('Writing mathematica input file including limit result to: <'+ yamlName + '.mathematica>' )
-    
-
-    with open(yamlName+".mathematica", 'w') as outfile:
+    with open(args.inputfile+".mathematica", 'w') as outfile:
          json.dump(AtomDataInclStat, outfile, indent=4) 
-
 
     outfile.close()
     
