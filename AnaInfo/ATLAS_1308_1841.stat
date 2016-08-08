@@ -1,0 +1,66 @@
+#Not complete
+Name: ATLAS_1308_1841
+SignalRegions:
+  FS_8j50_b0:
+    Background: 35
+    Observed: 40
+    SystematicError: 4
+    Type: CutAndCount
+    UpperLimit95exp: 16
+    UpperLimit95obs: 20
+  FS_8j50_b1:
+    Background: 40
+    Observed: 44
+    SystematicError: 10
+    Type: CutAndCount
+    UpperLimit95exp: 23
+    UpperLimit95obs: 23
+  FS_8j50_b2:
+    Background: 50
+    Observed: 44
+    SystematicError: 10
+    Type: XXCutAndCount
+    UpperLimit95exp: 26
+    UpperLimit95obs: 22    
+  FS_9j50_b0:
+    Background: 3.3
+    Observed: 5
+    SystematicError: 4
+    Type: CutAndCount
+    UpperLimit95exp: 5
+    UpperLimit95obs: 7
+  FS_9j50_b1:
+    Background: 6.1
+    Observed: 8
+    SystematicError: 1.7
+    Type: CutAndCount
+    UpperLimit95exp: 7
+    UpperLimit95obs: 9
+  FS_9j50_b2:
+    Background: 8
+    Observed: 7
+    SystematicError: 2.7
+    Type: CutAndCount
+    UpperLimit95exp: 8
+    UpperLimit95obs: 7
+  FS_8j80_b0:
+    Background: 0.9
+    Observed: 2
+    SystematicError: 0.6
+    Type: CutAndCount
+    UpperLimit95exp: 4
+    UpperLimit95obs: 5
+  FS_8j80_b1:
+    Background: 1.5
+    Observed: 1
+    SystematicError: 0.9
+    Type: CutAndCount
+    UpperLimit95exp: 4
+    UpperLimit95obs: 3.5
+  FS_8j80_b2:
+    Background: 3.3
+    Observed: 3
+    SystematicError: 2.2
+    Type: CutAndCount
+    UpperLimit95exp: 6
+    UpperLimit95obs: 6    

@@ -47,6 +47,12 @@ def commentText(text):
         outL += '#  ' + line
     return outL
 
+def procIDtranslate(procid):
+    if procid == 0:
+        return "total"
+    else: 
+        return procid
+
 def loadATOMstatInfo(ana_filename):
     try:
         stream = open(ana_filename, 'r')
@@ -100,24 +106,30 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                             
                     procid = effData["Sub-process ID"]
                     if effvalue > 0:
-                        # print effvalue, efferror, procid
-
-                        nvis = float(effvalue) * float(xsecSubProc[procid]) * integrated_lumi
+                        
+                        nvis = float(effvalue) * float(xsecSubProc[procid]) * integrated_lumi # number of visible events
                         
                         try:
+                            if anaStat[atomAnaName]["SignalRegions"][sr_name]["Type"] != "CutAndCount":
+                                print "hello1"
+                                logging.warning("Signal region is not Cut&Count " + atomAnaName + "  " + sr_name)
+                                raise Exception('Not cut&count')
                             obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperLimit95obs"])
-                            if obs95CLnevents < 0:
+                            if obs95CLnevents < 0: #Type: CutAndCount
                                 raise Exception('Negative Nevents95')
                         except:
                             try:
+                                if anaStat[atomAnaName]["SignalRegions"][sr_name]["Type"] != "CutAndCount":
+                                    print "hello1"
+                                    logging.warning("Signal region is not Cut&Count " + atomAnaName + "  " + sr_name)
+                                    raise Exception('Not cut&count')
                                 obs95CLnevents = float(anaStat[atomAnaName]["SignalRegions"][sr_name]["UpperXsecFB95obs"]) * integrated_lumi
-                                if obs95CLnevents<0:
+                                if obs95CLnevents<0 :
                                     raise Exception('Negative UpperXsecFB95obs')
                             except:
                                 logging.warning("Could not find signal region limit information for " + atomAnaName + "  " + sr_name)
 
                         nvisOn95 = float(nvis) / obs95CLnevents
-                        #print nvis, nvisOn95, xsecSubProc[procid]
 
                         fstate = str(getAtomFinalstate(atomOut,procid))
 
@@ -132,24 +144,23 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                             printcolor = bcolors.FAIL
                                 
                         if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1:  # not enough statistics to claim an exclusion, 1 sigma error is below limit
-                            excluded = " <- excluded? (LOW STAT!)" +bcolors.ENDC
-                            excludedFlags = "[Low Stat][Excluded]"
+                            excluded = " excluded? (Low statistics! more MC events" + +bcolors.ENDC
+                            excludedFlags = "[LowStatistics,Excluded]"
 
                         printLine =  [ printcolor + atomAnaName , sr_name,effvalue, nvis, nvisOn95 ]  
 
                         
                         if errorSHOW:
-                            #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
+                            
                             printLine =  [ printcolor + atomAnaName , sr_name, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
-                            #print printLine
-
+                            
                         if subprocSHOW:
-                            printLine.append( procid )
+                            printLine.append( procIDtranslate(procid) )
                             if finalstateSHOW:
                                 printLine.append( str(getAtomFinalstate(atomOut,procid)) )
                             printLine.append( excluded )
 
-                            outLine =  [ atomAnaName , sr_name ,effvalue, float(effvalue)*float(xsecSubProc[procid])*  integrated_lumi, float(effvalue)*float(xsecSubProc[procid])*integrated_lumi/float(obs95CLnevents), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
+                            outLine =  [ atomAnaName , sr_name ,effvalue, float(effvalue)*float(xsecSubProc[procid])*  integrated_lumi, float(effvalue)*float(xsecSubProc[procid])*integrated_lumi/float(obs95CLnevents), procIDtranslate(procid), str(getAtomFinalstate(atomOut,procid)), excluded ]
                         
                             atomPrint.append([str(i) for i in printLine])
                             outData.append([str(i) for i in outLine])
@@ -158,132 +169,32 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
                             printLine.append( excluded )
                             outLine =  [ atomAnaName , sr_name ,effvalue, float(effvalue)*float(xsecSubProc[procid])*  integrated_lumi, float(effvalue)*float(xsecSubProc[procid])*integrated_lumi/float(obs95CLnevents), procid,  excluded ]
                             atomPrint.append([str(i) for i in printLine])
-                            #atomPrint.append(printLine)
+        
                             outData.append([str(i) for i in outLine])
-                        index =0
-                        for effS in AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"]:
+        
+                        indexEFF =0
+                        for effS in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
                             
                             if effS["Efficiency Name"] == sr_name:
-                                #print "Found it", sr_name, procid
-                                anaStat[atomAnaName]["SignalRegions"][sr_name][str(procid)] = dict(  NvisibleEvents = nvis, NvisibleEventsoverN95 =  nvisOn95 )
-                                
-
-                                index2 = 0 
+        
+                                indexPID = 0 
                                 for procs in effS["Data"]:                                    
                                     if procs["Sub-process ID"] == procid:
-                                        #print "Found the subproc", procid
-                                        AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["Data"][index2]["NvisibleEvents"] = nvis                                        
-                                        AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["Data"][index2]["Nvisible/N95"] = nvisOn95                                        
-                                        AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["Data"][index2]["NvisibleEvents Stat Error"] = nviserror
-                                        AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["Data"][index2]["Nvisible/N95 Stat Error"] = nvisOn95error
-                                        AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["Data"][index2]["Limit Flags"] = excludedFlags                                         
+                                        # include it in the ATOM output yaml, we've passed it as a pointer, so the changes affect the input dictionary
+                                        atomOut["Analyses"][atomAnaName]["Efficiencies"][indexEFF]["Data"][indexPID]["NvisibleEvents"] = nvis 
+                                        atomOut["Analyses"][atomAnaName]["Efficiencies"][indexEFF]["Data"][indexPID]["Nvisible/N95"] = nvisOn95                                        
+                                        atomOut["Analyses"][atomAnaName]["Efficiencies"][indexEFF]["Data"][indexPID]["NvisibleEvents Stat Error"] = nviserror
+                                        atomOut["Analyses"][atomAnaName]["Efficiencies"][indexEFF]["Data"][indexPID]["Nvisible/N95 Stat Error"] = nvisOn95error
+                                        atomOut["Analyses"][atomAnaName]["Efficiencies"][indexEFF]["Data"][indexPID]["Limit Flags"] = excludedFlags                                         
                                         break
-                                    index2 +=1
-                                #AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index].appendanaStat[atomAnaName]["SignalRegions"][sr_name]
-                               # AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["NvisibleEvents"] = nvis
-                               # AtomDataInclStat["Analyses"][atomAnaName]["Efficiencies"][index]["NvisibleEvents over N95"] = nvisOn95
-                            index += 1
-                        #printLine.append( excluded )
-
-                        # print printLine
+                                    indexPID +=1
+                            indexEFF += 1
                         excluded = bcolors.ENDC
 
                 
             except KeyError:
-                logging.warning("Could not find signal region limit information for " + atomAnaName + "  " + sr_name)
-                
-                
-            # try:
-            #     #print atomAnaName
-            #     for effItem in atomOut["Analyses"][atomAnaName]["Efficiencies"]:
-            #         #
-            #         excluded = ""
-            #         effvalue = 0.
-            #         #efferror = effItem["Error"][0]["Stat"][1]                   
-            #         if effItem["Efficiency Name"] == srData.sr_info:
-            #             #print "found one" , ana, srData.sr_info, effItem["Data"]
-            #             for effData in effItem["Data"]:
-            #                 effvalue = effData["Efficiency Value"]
-            #                 efferror = effData["Efficiency Stat Error"]
-            #                 #print efferror
-            #                 procid = effData["Sub-process ID"]
-
-            #                 printLine = []
-            #                 outLine = []
-
-            #                 if effvalue > 0.:
-                                
-            #                     printcolor = bcolors.ENDC
-                                
-                                # nvis = float(effvalue) * float(xsecSubProc[procid]) * anaData.lumi
-                                # nvisOn95 = float(nvis) / float(srData.UL_nvis_obs)
-                                # fstate = str(getAtomFinalstate(atomOut,procid))
-
-                                # nviserror = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi for errorelement in efferror ]
-                                # nvisOn95error = [ errorelement  * float(xsecSubProc[procid]) * anaData.lumi  / float(srData.UL_nvis_obs) for errorelement in efferror ]
-
-                                # #print srData.UL_nvis_obs, nvisOn95, nvisOn95error, (nvisOn95 + nvisOn95error[0])
-
-                                # if nvisOn95 > 1:
-                                #     excluded = " <- excluded"
-                                #     printcolor = bcolors.FAIL
-                                
-                                # if nvisOn95 > 1 and (nvisOn95 + nvisOn95error[0]) < 1: # 
-                                #     excluded = " <- excluded? (LOW STAT)"
-                                # #     #print excluded
-                                # #     printcolor = bcolors.WARNING
-
-                                # printLine =  [ printcolor + ana , srData.sr_info,effvalue, nvis, nvisOn95,  ]
-
-                                # if errorSHOW:
-                                #     #printLine =  [ printcolor + ana , srData.sr_info, effvalue, str(efferror), nvis, str(nviserror) , nvisOn95  ]
-                                #     printLine =  [ printcolor + ana , srData.sr_info, effvalue, efferror[0],efferror[1], nvis, nviserror[0],nviserror[1] , nvisOn95  ]
-                                #     #print printLine
-
-                                # if subprocSHOW:
-
-                                #     printLine.append( procid )
-                                #     if finalstateSHOW:
-                                #         printLine.append( str(getAtomFinalstate(atomOut,procid)) )
-
-                                #     printLine.append( excluded )
-
-                                #     outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, str(getAtomFinalstate(atomOut,procid)), excluded ]
-                                #     atomPrint.append([str(i) for i in printLine])
-                                #     outData.append([str(i) for i in outLine])    
-
-            #                     elif not subprocSHOW and procid == 0:    
-
-            #                         printLine.append( excluded )
-            #                         outLine = [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecin)*   anaData.lumi, float(effvalue)*float(xsecin)*anaData.lumi/float(srData. UL_nvis_obs), procid, excluded ]
-            #                         atomPrint.append([str(i) for i in printLine])
-            #                         outData.append([str(i) for i in outLine])
-    
-            #                     # elif subprocSHOW and not finalstateSHOW:
-
-            #                     #     printLine.append( procid )
-            #                     #     printLine.append( excluded )
-
-            #                     #     outLine =  [ ana , srData.sr_info,effvalue, float(effvalue)*float(xsecSubProc[procid])*  anaData.lumi, float(effvalue)*float(xsecSubProc[procid])*anaData.lumi/float(srData.    UL_nvis_obs), procid, excluded ]
-            #                     #     atomPrint.append([str(i) for i in printLine])
-            #                     #     outData.append([str(i) for i in outLine])
-            #                     #     #atomPrint.append(printLine)
-                                
-            #                     # print "debug opts ",subprocSHOW , procid , finalstateSHOW
-
-                                
-            #                     excluded = ""
-            # except KeyError:
-            #     #print "Unexpected error:", sys.exc_info()[0]
-            #     pass    
-
-            # except:
-            #     print "Unexpected error:", sys.exc_info()
-            #     pass    
-            # #print "done"       
-
-    # printHeader = ['Analysis','Signal Region', 'efficiency', 'Nvis','Nvis/N95','Process-ID','']
-
+                logging.warning("Could not find signal region limit information for " + atomAnaName + "  " + sr_name)              
+       
     printHeader = ['Analysis','Signal Region', 'Efficiency' ]
 
     headErr = ['-','+']
@@ -303,8 +214,6 @@ def get_results_atom(anaStat, atomOut, xsecin , xsecSubProc):
 
     printHeader.append('')     
 
-    # which column is the Nvis/N95? 
-    # 5 for no options
 
    # print tabulate(atomPrint, headers="firstrow", tablefmt="rst")
    # atomPrint = sorted(atomPrint, key=operator.itemgetter(4))
@@ -385,17 +294,11 @@ if __name__ == "__main__":
         ana_list = os.listdir(analysisInfoDir)
         #print ana_list
         for ana_filename in ana_list:
-            oneAna=loadATOMstatInfo(os.path.join(analysisInfoDir, ana_filename))
-            allAnaStat[oneAna["Name"]] = oneAna
+            if ana_filename.endswith(".limit"):
+                oneAna=loadATOMstatInfo(os.path.join(analysisInfoDir, ana_filename))
+                allAnaStat[oneAna["Name"]] = oneAna
     else:
         ana_list = []
-
-    # if os.path.exists(os.path.join(fastlimdir,'7TeV')):         
-    #     ana_list_7 = os.listdir(os.path.join(fastlimdir,'7TeV'))
-    #     ana_dict_7 = atom_limit.read_data.get_ana_dict(fastlimdir,ana_list_7, 7)
-    #     ana_dict.update(ana_dict_7)
-    # else:
-    #     ana_list_7 = []
     
     logging.info('Reading Atom file <' + args.inputfile + ">...")    
 
@@ -440,7 +343,7 @@ if __name__ == "__main__":
 
     AtomRunInfo = yaml.dump(AtomData["Atom Run Info"], default_flow_style=False) 
     
-    AtomDataInclStat = AtomData.copy() # Will be used for output
+    
 
 
     results_8 = {}
@@ -487,7 +390,7 @@ if __name__ == "__main__":
     logging.info('Writing mathematica input file including limit result to: <'+ args.inputfile + '.mathematica>' )    
 
     with open(args.inputfile+".mathematica", 'w') as outfile:
-         json.dump(AtomDataInclStat, outfile, indent=4) 
+         json.dump(AtomData, outfile, indent=4) 
 
     outfile.close()
     

@@ -1,15 +1,6 @@
 Luminosity: 20.3
 Name: ATLAS_1404_2500
 SignalRegions:
-  SR3b:
-    Background: 2.2
-    Observed: 1
-    SystematicError: 0.8
-    Type: CutAndCount
-    UpperLimit95exp: 4.4
-    UpperLimit95obs: 3.9
-    UpperXsecFB95exp: -1.0
-    UpperXsecFB95obs: -1.0
   SR0b:
     Background: 6.5
     Observed: 14

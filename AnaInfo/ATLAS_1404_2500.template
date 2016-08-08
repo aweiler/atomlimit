@@ -1,0 +1,49 @@
+Luminosity: 20.3
+Name: ATLAS_1404_2500
+SignalRegions:
+  SR3b:
+    Type: CutAndCount
+    Observed Nevents: 1
+    Background Nevents: 2.2
+    Background Error: 0.8
+    Upper Limit Nevents 95exp: 4.4
+    Upper Limit Nevents 95obs: 3.9
+    Upper Limit Xsec(fb) 95exp: -1.0
+    Upper Limit Xsec(fb) 95obs: -1.0
+	p-value:19827312789123978
+  SR0b:
+    Background: 6.5
+    Observed: 14
+    SystematicError: 2.3
+    Type: CutAndCount
+    UpperLimit95exp: 8.9
+    UpperLimit95obs: 16.3
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
+  SR1b:
+    Background: 4.7
+    Observed: 10
+    SystematicError: 2.1
+    Type: CutAndCount
+    UpperLimit95exp: 8.0
+    UpperLimit95obs: 13.3
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
+  SR3Llow:
+    Background: 4.3
+    Observed: 6
+    SystematicError: 2.1
+    Type: CutAndCount
+    UpperLimit95exp: 7.2
+    UpperLimit95obs: 8.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
+  SR3Lhigh:
+    Background: 2.5
+    Observed: 2
+    SystematicError: 0.9
+    Type: CutAndCount
+    UpperLimit95exp: 5.0
+    UpperLimit95obs: 4.6
+    UpperXsecFB95exp: -1.0
+    UpperXsecFB95obs: -1.0
